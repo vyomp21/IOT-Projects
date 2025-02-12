@@ -1,0 +1,32 @@
+//variable and pins declared and initialised
+int trigPin = 10;
+int echoPin = 9;
+long time;
+int distance;
+
+void setup()
+//this loop only repeats once
+{
+    pinMode(10,OUTPUT); //trig pin set as OUTPUT
+    pinMode(9,INPUT);   //echo pin set as INPUT
+    Serial.begin(9600); //begin communication
+}
+
+void loop()
+//thid loop repeats continuously 
+{
+    digitalWrite(10,LOW); //trig pin set low (cleared)
+    delayMicroseconds(2); // delay of 2 ms
+    
+    digitalWrite(10,HIGH); 
+    delayMicroseconds(10);
+    digitalWrite(10,LOW);
+    
+    //calculating distance
+    time = pulseIn(9,HIGH); //to calc time of flight
+    distance = time*0.034/2; //to calc distance of object 0.034 = speed of sound in air
+    
+    //printing the distance
+    Serial.print("Distance: ");
+    Serial.println(distance);
+}
